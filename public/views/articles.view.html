@@ -1,0 +1,20 @@
+<br>
+<h3 class="heading">Articles</h3>
+<br>
+<div ng-controller="ArticlesController">
+    <div class="row">
+        <div class="col-lg-4" ng-repeat="article in articles">
+            <div class="thumbnail">
+                <img src="../images/article.jpg" style="min-height:200px; height: 200px" />
+                <div class="caption">
+                    <h4>{{ article.category }}</h4>
+                    <p>{{ article.title }}</p>
+                    <p>{{article.body}}</p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

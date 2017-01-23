@@ -1,0 +1,96 @@
+<br>
+<h3 class="heading">Categories</h3>
+<button class="btn btn-danger" data-target="#createModal" data-toggle="modal">New Category</button>
+<!-- Create Category Modal -->
+<div id="createModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Create a new Category:</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon0">Title</span>
+                    <input type="text" class="form-control" aria-describedby="basic-addon0" placeholder="For example: Sport News">
+                </div>
+                <br/>
+                <div class="form-group">
+
+                    <div class="input-group">
+                        <span class="input-group-addon">Description</span>
+                    </div>
+                    <div class="tab-pane active" id="des">
+                        <textarea class="form-control" rows="5"></textarea>
+                        <br/>
+                        <button type="button" class="btn btn-warning">Clear</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Close</button>
+                <button class="btn btn-danger">Save</button>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<br>
+<br>
+<div ng-controller="CategoriesController">
+    <div class="row">
+        <div class="col-lg-4" ng-repeat="category in categories">
+            <div class="thumbnail">
+                <img ng-src="../images/{{category.name | lowercase }}.png" style="min-height:200px; height: 200px" />
+                <div class="caption">
+                    <h4>{{ category.name }}</h4>
+                    <p>{{ category.description }}</p>
+
+                    <button type="button" class="btn btn-success"><a data-target="#myModal{{$index}}" style="color: white" data-toggle="modal">Update</a></button>
+
+                    <!-- Technology Modal shows here. -->
+                    <div id="myModal{{$index}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4>You can update the category details here:</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">Title</span>
+                                        <input type="text" class="form-control" aria-describedby="basic-addon1" ng-model="title[$index]">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-info" ng-click="resetInput(category.name, $index)">Reset Title</button>
+                                        </span>
+                                    </div>
+                                    <br/>
+                                    <div class="form-group">
+
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Description</span>
+                                        </div>
+                                        <div class="tab-pane active" id="des">
+                                            <textarea class="form-control" rows="5" id="description{{$index}}" ng-model="desc[$index]">{{category.description}}</textarea>
+                                            <br/>
+                                            <p>Reset button will reset it to the original value.</p>
+                                            <button type="button" class="btn btn-warning" ng-click="resetDesc(category.description, $index)">Reset Desc</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Close</button>
+                                    <button class="btn btn-danger" ng-click="saveDetails(title[$index], desc[$index])">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
