@@ -10,28 +10,84 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4>Create a new Category:</h4>
             </div>
-            <div class="modal-body">
-                <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon0">Title</span>
-                    <input type="text" class="form-control" aria-describedby="basic-addon0" placeholder="For example: Sport News">
-                </div>
-                <br/>
-                <div class="form-group">
+            <form novalidate="novalidate" ng-submit="onSubmit()">
+                <div class="modal-body">
 
-                    <div class="input-group">
-                        <span class="input-group-addon">Description</span>
+                    <div class="form-group">
+                        <label for="title" class="col-sm-2">Title</label>
+                        <input id="titleId" type="text" class="form-control " aria-describedby="basic-addon0" placeholder="For example: Sport News" ng-model="newTitle" ng-minlength="3" ng-maxlength="20" required ng-blur="blur()">
+
+                        <button type="button" class="btn btn-info" ng-click="clearNewTitle()">Clear Title</button>
+
                     </div>
-                    <div class="tab-pane active" id="des">
-                        <textarea class="form-control" rows="5"></textarea>
-                        <br/>
-                        <button type="button" class="btn btn-warning">Clear</button>
+
+                    <div class="form-group">
+                        <label for="descId" class="col-sm-2">Description</label>
+                        <textarea class="form-control" rows="5" ng-model="newDesc" id="descId" ng-minlength="10" ng-maxlength="450" required ng-blur="blur()"></textarea>
+
+                        <button type="button" class="btn btn-warning" ng-click="clearNewDesc()">Clear Desc</button>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <p style="color:red">{{errorMessage}}</p>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true" ng-click="clearAll()">Close</button>
+                    <button class="btn" ng-hide="blur()">Next</button>
+                    <button ng-show="blur()" class="btn btn-success" data-target="#checkModal" data-toggle="modal" ng-click="onCheck()">Next</button>
+
+                </div>
+                <div id="checkModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="checkModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" style="width: 70%; height: 50%">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" aria-hidden="true" ng-click="hideModal()">&times;</button>
+                                <h4>Are you sure?</h4>
+
+                            </div>
+                            <div class="modal-body">
+                                <p>Choose a picture for your category.</p>
+                                <!-- carousel starts from here... -->
+                                <div id="myCarousel" class="carousel slide">
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                                    </ol>
+
+                                    <div class="carousel-inner">
+                                        <div class="active item">
+                                            <img class="img-responsive center-block" src="../images/clock.png">
+                                            <div class="carousel-caption" style="position: relative; left: auto; right: auto; color: black;">
+                                                <p>Clock</p>
+                                            </div>
+                                        </div>
+                                        <div class="item"><img class="img-responsive center-block" src="../images/graph.png">
+                                            <div class="carousel-caption" style="position: relative; left: auto; right: auto; color: black">
+                                                <p>Graph</p>
+                                            </div>
+                                        </div>
+                                        <div class="item"><img class="img-responsive center-block" src="../images/imac.png">
+                                            <div class="carousel-caption" style="position: relative; left: auto; right: auto; color: black">
+                                                <p>IMac</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <a class="carousel-control left" href="#myCarousel" data-slide="prev" style="top: 50px; height: 35px">&lsaquo;</a>
+                                    <a class="carousel-control right" href="#myCarousel" data-slide="next" style="top: 50px; height: 35px">&rsaquo;</a>
+                                </div>
+                                <!-- carousel ends here -->
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-secondary" aria-hidden="true" ng-click="hideModal()">Close</button>
+                                <button class="btn btn-danger" data-target="#checkModal" data-toggle="modal" type="submit">Save</button>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Close</button>
-                <button class="btn btn-danger">Save</button>
-            </div>
+            </form>
         </div>
 
 
@@ -41,15 +97,36 @@
 <br>
 <div ng-controller="CategoriesController">
     <div class="row">
-        <div class="col-lg-4" ng-repeat="category in categories">
+        <div class="col-lg-3" ng-repeat="category in categories">
             <div class="thumbnail">
-                <img ng-src="../images/{{category.name | lowercase }}.png" style="min-height:200px; height: 200px" />
+                <img ng-src="../images/{{category.name | lowercase }}.png" style="min-height:150px; height: 150px" />
                 <div class="caption">
                     <h4>{{ category.name }}</h4>
-                    <p>{{ category.description }}</p>
+                    <p>{{ category.description | limitTo: 60 }}&nbsp;&nbsp;<a style="cursor: pointer" ng-click="showCategoryDetails( category.description )" data-target="#myModal{{$index}}" data-toggle="modal"><strong>...</strong></a></p>
+
+                    <!-- Details Modal starts from here.. -->
+
 
                     <button type="button" class="btn btn-success"><a data-target="#myModal{{$index}}" style="color: white" data-toggle="modal">Update</a></button>
-
+                    <button type="button" class="btn btn-info"><a data-target="#myDeleteModal{{$index}}" style="color: white" data-toggle="modal">Delete</a></button>
+                    <!-- Delete Modal shows here -->
+                    <div id="myDeleteModal{{$index}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myDeleteModal" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4>Are you sure you want to delete this category?</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>If you click the 'Delete' below, this opertion will delete this category in MongoDB.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Close</button>
+                                    <button class="btn btn-danger" ng-click="deleteCategory(category._id, $index)">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Technology Modal shows here. -->
                     <div id="myModal{{$index}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -82,7 +159,17 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Close</button>
-                                    <button class="btn btn-danger" ng-click="saveDetails(title[$index], desc[$index])">Save</button>
+                                    <button class="btn btn-danger" ng-click="saveDetails(category._id, title[$index], desc[$index], $index)">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- update successful modal -->
+                    <div id="updateSuccess" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <h4>Update Successfully!</h4>
                                 </div>
                             </div>
                         </div>

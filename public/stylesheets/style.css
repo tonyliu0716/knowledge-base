@@ -16,3 +16,7 @@ a {
 .thumbnail img {
     width: 100%;
 }
+
+.pagination li {
+    cursor: pointer;
+}

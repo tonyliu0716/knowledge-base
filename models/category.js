@@ -3,8 +3,7 @@ var mongoose = require('mongoose');
 var categorySchema = mongoose.Schema({
     name: {
         type: String,
-        index: true,
-        required: true
+        index: true
     },
     description: {
         type: String
@@ -35,4 +34,35 @@ module.exports.getArticlesByCategory = function (category, callback) {
 module.exports.createCategory = function (newCategory, callback) {
     var category = new Category(newCategory);
     category.save(callback);
+};
+
+// udpate Article
+module.exports.updateCategory = function (id, data, callback) {
+    var name = data.name;
+    var description = data.description;
+
+
+    Category.findById(id, function (err, category) {
+        if (!category) {
+            return next(new Error('Could not load Document.'));
+        } else {
+            // then we update
+            category.name = name;
+            category.description = description;
+
+            // then we save it into the database
+            category.save(callback);
+        }
+
+    });
+};
+
+// Delete Category
+module.exports.removeCategory = function (id, callback) {
+    Category.findById(id, function (err, category) {
+        if (err) {
+            console.log(err);
+        }
+        category.remove(callback);
+    });
 };

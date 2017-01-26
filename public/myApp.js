@@ -1,4 +1,4 @@
-var app = angular.module('knowledgebase', ['ui.router']);
+var app = angular.module('knowledgebase', ['ui.router', 'jcs-autoValidate']);
 
 app.config(['$stateProvider', '$locationProvider', function ($stateProvider, $locationProvider) {
     $stateProvider

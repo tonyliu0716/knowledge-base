@@ -42,4 +42,35 @@ router.post('/', function (req, res, next) {
     });
 });
 
+// update categories
+router.put('/:id', function (req, res, next) {
+    var id = req.params.id;
+    var data = {
+        //should get these data from 
+        name: req.body.name,
+        description: req.body.description
+    };
+
+    // create Article
+    Category.updateCategory(id, data, function (err, category) {
+        if (err) {
+            console.log(err);
+        }
+
+        res.json(category);
+    });
+});
+
+// delete category
+router.delete('/:id', function (req, res, next) {
+    var id = req.params.id;
+    Category.removeCategory(id, function (err, category) {
+        if (err) {
+            console.log(err);
+        }
+        return res.sendStatus(204);
+
+    });
+})
+
 module.exports = router;
