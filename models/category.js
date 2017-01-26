@@ -40,6 +40,7 @@ module.exports.createCategory = function (newCategory, callback) {
 module.exports.updateCategory = function (id, data, callback) {
     var name = data.name;
     var description = data.description;
+    var image_url = data.image_url;
 
 
     Category.findById(id, function (err, category) {
@@ -49,6 +50,7 @@ module.exports.updateCategory = function (id, data, callback) {
             // then we update
             category.name = name;
             category.description = description;
+            category.image_url = image_url;
 
             // then we save it into the database
             category.save(callback);

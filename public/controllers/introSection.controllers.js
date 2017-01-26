@@ -2,7 +2,7 @@ angular.module("knowledgebase")
 
 .controller('introSectionController', ['$scope', function ($scope) {
     $scope.pageIndex = 1;
-
+    // controle pageIndex
     $scope.changePage = function (index) {
         $scope.pageIndex = index;
     };

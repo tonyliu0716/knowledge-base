@@ -27,9 +27,11 @@ router.get('/:id', function (req, res, next) {
 router.post('/', function (req, res, next) {
     var name = req.body.name;
     var description = req.body.description;
+    var image_url = req.body.image_url;
     var category = {
         name: name,
-        description: description
+        description: description,
+        image_url: image_url
     };
     //try to create a new Category
     Category.createCategory(category, function (err, category) {
@@ -48,7 +50,8 @@ router.put('/:id', function (req, res, next) {
     var data = {
         //should get these data from 
         name: req.body.name,
-        description: req.body.description
+        description: req.body.description,
+        image_url: req.body.image_url
     };
 
     // create Article

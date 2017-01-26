@@ -14,12 +14,14 @@ angular.module("knowledgebase")
         //assign the init description value into array: for reset button
         $scope.desc = [];
         $scope.title = [];
+        $scope.image = [];
         angular.forEach($scope.categories, function (category, index) {
             $scope.desc.push(category.description);
             $scope.title.push(category.name);
+            $scope.image.push(category.image_url);
         });
 
-        console.log("Why loading twice here? Fix that later.");
+
     }, function (error) {
         console.log(error);
     });
@@ -67,6 +69,32 @@ angular.module("knowledgebase")
         }).then(function (response) {
             // close the modal here.
             $("#myDeleteModal" + index).modal("toggle");
+            //after delete, get all data from db then show
+            //ajax request
+            $http({
+                method: "GET",
+                url: "/api/categories"
+            }).then(function (response) {
+                var data = response.data;
+                console.log("First time loading...");
+                $scope.categories = response.data;
+
+                //assign the init description value into array: for reset button
+                $scope.desc = [];
+                $scope.title = [];
+                $scope.image = [];
+                angular.forEach($scope.categories, function (category, index) {
+                    $scope.desc.push(category.description);
+                    $scope.title.push(category.name);
+                    $scope.image.push(category.image_url);
+                });
+
+
+            }, function (error) {
+                console.log(error);
+            });
+
+
         }, function (error) {
             console.log(error);
         });
@@ -90,6 +118,8 @@ angular.module("knowledgebase")
 
     //hide modal: nested modals
     $scope.hideModal = function () {
+        //before hide the modal, clear the iamge field:
+        $scope.newImage = "";
         $("#checkModal").modal('hide');
     };
 
@@ -120,26 +150,51 @@ angular.module("knowledgebase")
         console.log(value);
     }
 
+
     $scope.onSubmit = function () {
+        //when click save, clear image url field.
 
+        $http({
+            method: "POST",
+            url: "/api/categories",
+            data: {
+                name: $scope.newTitle,
+                description: $scope.newDesc,
+                image_rul: $scope.newImage
+            }
+        }).then(function (response) {
+            //update the view
+            /*$http({
+                method: "GET",
+                url: "/api/categories"
+            }).then(function (response) {
+                var data = response.data;
+                console.log("First time loading...");
+                $scope.categories = response.data;
 
-        /* 
-                $http({
-                    method: "POST",
-                    url: "/api/categories",
-                    data: {
-                        name: newTitle,
-                        description: newDesc
-                    }
-                }).then(function (response) {
-                    console.log(response);
-                }, function (error) {
-                    console.log(error);
+                //assign the init description value into array: for reset button
+                $scope.desc = [];
+                $scope.title = [];
+                $scope.image = [];
+                angular.forEach($scope.categories, function (category, index) {
+                    $scope.desc.push(category.description);
+                    $scope.title.push(category.name);
+                    $scope.image.push(category.image_url);
                 });
 
-                //show success message
-                console.log("I have been successful submitted.");
-        */
+
+            }, function (error) {
+                console.log(error);
+            }); */
+
+            console.log(response);
+        }, function (error) {
+            console.log(error);
+        });
+
+        //show success message
+        console.log("I have been successful submitted.");
+
     };
 
             }]);
