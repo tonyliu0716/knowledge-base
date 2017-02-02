@@ -7,6 +7,7 @@ Simple Express + Node.js + Angular + MongoDB project.
 -------
 ###### If you already installed it, no need to install again.
 `npm install -g express` -> install express
+
 `npm install -g express-generator` -> install express generator
 
 -------
