@@ -17,7 +17,7 @@ In our case: `express knowledge`
 -------
 
 ### 3. Add mongodb denpency to package.json file
-![屏幕快照 2017-02-02 13.31.39](media/14860564398265/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-02-02%2013.31.39.png)
+![屏幕快照 2017-02-02 13.31.39](https://cloud.githubusercontent.com/assets/12025010/22573544/16ab15b0-e96f-11e6-906a-bc505f3ba3d4.png)
 
 
 -------
