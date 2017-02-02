@@ -48,14 +48,14 @@ Run `npm install` install all the dependencies.
 > (Assume our knowledge db has two collections, one call **articles**, the other is **categories**, we will create that later)
 
 Our route folder should looks like:
-![屏幕快照 2017-02-02 14.29.15](media/14860564398265/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-02-02%2014.29.15.png)
+![屏幕快照 2017-02-02 14.29.15](https://cloud.githubusercontent.com/assets/12025010/22573572/418f8522-e96f-11e6-80f7-4f8873fc09fc.png)
 
 Then we need to configure the entity in our app.js. Be careful with the path, make sure that is correct.
 `var index = require('./routes/index');`
 `var articles = require('./routes/api/articles');`
 `var categories = require('./routes/api/categories');`
 
-![屏幕快照 2017-02-02 13.45.36](media/14860564398265/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-02-02%2013.45.36.png)
+![屏幕快照 2017-02-02 13.45.36](https://cloud.githubusercontent.com/assets/12025010/22573561/32f7a0e4-e96f-11e6-955c-bd9be3f42cc3.png)
 
 -------
 Then create the default endpoint api address( in app.js ):
