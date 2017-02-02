@@ -24,16 +24,21 @@ In our case: `express knowledge`
 -------
 ### 4. Run npm command:
 `cd knowledge` then
+
 Run `npm install` install all the dependencies.
 
 
 -------
 ### 5. Open the project folder, then add MongoDB dependency to app.js:
 `var mongo = require('mongodb');`
+
 `var mongoose = require('mongoose');`
+
  `var db = mongoose.connection;`
+ 
  `mongoose.connect(your local db);` 
-![屏幕快照 2017-02-02 13.45.36](media/14860564398265/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-02-02%2013.45.36.png)
+ 
+![屏幕快照 2017-02-02 13.45.36](https://cloud.githubusercontent.com/assets/12025010/22573561/32f7a0e4-e96f-11e6-955c-bd9be3f42cc3.png)
 
 >  Use _mongoose.connect_ to connect to our local database(knowledge).
 
