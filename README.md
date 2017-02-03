@@ -88,6 +88,80 @@ Then create the default endpoint api address( in app.js ):
 
 
 -------
-###  8. 
+###  8. Under 'models' folder, modify the category.js
+
+```
+// default setting for category schema:
+var mongoose = require('mongoose');
+
+var categorySchema = mongoose.Schema({
+    name: {
+        type: String,
+        index: true
+    },
+    description: {
+        type: String
+    },
+    image_url: {
+        type: String
+    }
+});
+
+var Category = module.exports = mongoose.model('Category', categorySchema);
+
+```
+Then we can easily define CRUD on the same file(category.js):
+
+```
+// find all the article from mongodb
+module.exports.getCategories = function (callback) {
+    Category.find(callback);
+}
+
+// get article by id
+module.exports.getCategoryById = function (id, callback) {
+    Category.findById(id, callback);
+}
+
+// create category
+module.exports.createCategory = function (newCategory, callback) {
+    var category = new Category(newCategory);
+    category.save(callback);
+};
+
+// udpate Article
+module.exports.updateCategory = function (id, data, callback) {
+    var name = data.name;
+    var description = data.description;
+    var image_url = data.image_url;
+
+
+    Category.findById(id, function (err, category) {
+        if (!category) {
+            return next(new Error('Could not load Document.'));
+        } else {
+            // then we update
+            category.name = name;
+            category.description = description;
+            category.image_url = image_url;
+
+            // then we save it into the database
+            category.save(callback);
+        }
+
+    });
+};
+
+// Delete Category
+module.exports.removeCategory = function (id, callback) {
+    Category.findById(id, function (err, category) {
+        if (err) {
+            console.log(err);
+        }
+        category.remove(callback);
+    });
+};
+
+```
 
 
