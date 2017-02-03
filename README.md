@@ -113,12 +113,12 @@ var Category = module.exports = mongoose.model('Category', categorySchema);
 Then we can easily define CRUD on the same file(category.js):
 
 ```
-// find all the article from mongodb
+// find all categories from mongodb
 module.exports.getCategories = function (callback) {
     Category.find(callback);
 }
 
-// get article by id
+// get category by id
 module.exports.getCategoryById = function (id, callback) {
     Category.findById(id, callback);
 }
@@ -129,7 +129,7 @@ module.exports.createCategory = function (newCategory, callback) {
     category.save(callback);
 };
 
-// udpate Article
+// udpate Category
 module.exports.updateCategory = function (id, data, callback) {
     var name = data.name;
     var description = data.description;
