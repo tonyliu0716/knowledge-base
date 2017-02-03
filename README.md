@@ -65,7 +65,7 @@ Then we need to configure the entity in our app.js. Be careful with the path, ma
 -------
 Then create the default endpoint api address( in app.js ):
 
-![屏幕快照 2017-02-02 17.15.13](media/14860564398265/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-02-02%2017.15.13.png)
+![屏幕快照 2017-02-02 17.15.13](https://cloud.githubusercontent.com/assets/12025010/22573593/560136c2-e96f-11e6-81f4-9aecbe77063c.png)
 
 -------
 
