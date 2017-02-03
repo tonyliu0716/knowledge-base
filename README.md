@@ -163,5 +163,90 @@ module.exports.removeCategory = function (id, callback) {
 };
 
 ```
+-------
+### 9. Under 'routes/api' folder, modify categories.js
 
+```
+var express = require('express');
+var router = express.Router();
+
+// corresponding to category model
+var Category = require('../../models/category');
+
+// this file is categories.js, so '/' it means '/api/categories'
+router.get('/', function (req, res, next) {
+    Category.getCategories(function (err, categories) {
+        if (err) {
+            console.log(err);
+        }
+        res.json(categories);
+    });
+});
+
+// this file is categories.js, so '/:id' it means '/api/categories/:id'
+router.get('/:id', function (req, res, next) {
+    Category.getCategoryById(req.params.id, function (err, category) {
+        if (err) {
+            console.log(err);
+        }
+        res.json(category);
+    });
+
+});
+
+router.post('/', function (req, res, next) {
+    var name = req.body.name;
+    var description = req.body.description;
+    var image_url = req.body.image_url;
+    var category = {
+        name: name,
+        description: description,
+        image_url: image_url
+    };
+    //try to create a new Category
+    Category.createCategory(category, function (err, category) {
+        if (err) {
+            console.log(err);
+        }
+        res.location('/');
+        res.redirect("/");
+
+    });
+});
+
+// update categories
+router.put('/:id', function (req, res, next) {
+    var id = req.params.id;
+    var data = {
+        //should get these data from 
+        name: req.body.name,
+        description: req.body.description,
+        image_url: req.body.image_url
+    };
+
+    // create Article
+    Category.updateCategory(id, data, function (err, category) {
+        if (err) {
+            console.log(err);
+        }
+
+        res.json(category);
+    });
+});
+
+// delete category
+router.delete('/:id', function (req, res, next) {
+    var id = req.params.id;
+    Category.removeCategory(id, function (err, category) {
+        if (err) {
+            console.log(err);
+        }
+        return res.sendStatus(204);
+
+    });
+})
+
+module.exports = router;
+
+```
 
