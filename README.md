@@ -249,4 +249,21 @@ router.delete('/:id', function (req, res, next) {
 module.exports = router;
 
 ```
+-------
+
+### 9. Render index.html when user try to access http://localhost:3000/
+Under 'routes' folder, modify the index.js
+
+```
+var express = require('express');
+var router = express.Router();
+
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+
+module.exports = router;
+
+```
 
