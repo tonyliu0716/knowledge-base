@@ -2,7 +2,7 @@
 
 Simple Express + Node.js + Angular + MongoDB project.
 
-# Steps
+# Basic Project Set up - Steps
 ### 1. Install express & express-generator
 -------
 ###### If you already installed it, no need to install again.
